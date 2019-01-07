@@ -30,8 +30,6 @@ public final class Jogador implements Serializable, Comparable<Jogador> {
 	@AtributoNaoNulo
 	private BigDecimal salario;
 	
-	private transient boolean capitao;
-	
 	public Jogador id(Long id) {
 		this.id = id;
 		return this;
@@ -61,12 +59,7 @@ public final class Jogador implements Serializable, Comparable<Jogador> {
 		this.salario = salario;
 		return this;
 	}
-	
-	public Jogador capitao(boolean capitao) {
-		this.capitao = capitao;
-		return this;
-	}
-	
+
 	/*
 	 * getters
 	 */
@@ -92,10 +85,6 @@ public final class Jogador implements Serializable, Comparable<Jogador> {
 
 	public BigDecimal getSalario() {
 		return salario;
-	}
-	
-	public boolean ehCapitao() {
-		return capitao;
 	}
 
 	@Override
@@ -140,8 +129,6 @@ public final class Jogador implements Serializable, Comparable<Jogador> {
 			.append(nivelHabilidade)
 			.append(", salario=")
 			.append(salario)
-			.append(", capitao=")
-			.append(capitao)
 			.append("]");
 		return builder.toString();
 	}

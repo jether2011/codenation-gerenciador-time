@@ -1,13 +1,11 @@
 package br.com.codenation.desafio.helper;
 
-import static br.com.codenation.desafio.util.Constante.NAONULO;
-import static br.com.codenation.desafio.util.Constante.HABILIDADE;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import br.com.codenation.desafio.annotations.validator.AtributoNaoNuloValidator;
+import br.com.codenation.desafio.annotations.validator.NivelHabilidadeMaxMinValidator;
 import br.com.codenation.desafio.domain.Jogador;
 
 /**
@@ -15,22 +13,25 @@ import br.com.codenation.desafio.domain.Jogador;
  * @author jether.rodrigues
  *
  */
-public final class FabricaJogador implements Serializable {
+public final class FabricaJogador implements Fabrica<Jogador> {
 
 	private static final long serialVersionUID = 1L;
+	
+	private final AtributoNaoNuloValidator naoNulo = new AtributoNaoNuloValidator();
+	private final NivelHabilidadeMaxMinValidator habilidade = new NivelHabilidadeMaxMinValidator();
 
-	public Optional<Jogador> retornarUmJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade, BigDecimal salario) {
+	public Optional<Jogador> fabricar(Object... valores) {
 		Jogador jogador = new Jogador()
-			.id(id)
-			.idTime(idTime)
-			.nome(nome)
-			.dataNascimento(dataNascimento)
-			.nivelHabilidade(nivelHabilidade)
-			.salario(salario);
+			.id((Long) valores[0])
+			.idTime((Long) valores[1])
+			.nome((String) valores[2])
+			.dataNascimento((LocalDate) valores[3])
+			.nivelHabilidade((Integer) valores[4])
+			.salario((BigDecimal) valores[5]);
 		
 		try {
-			HABILIDADE.validar(jogador);
-			NAONULO.validar(jogador);
+			habilidade.validar(jogador);
+			naoNulo.validar(jogador);
 			
 			return Optional.of(jogador);
 		} catch (Exception e) {

@@ -17,15 +17,21 @@ public class TesteCadastroJogadorTime {
 	
 	public static void main(String[] args) {
 		final long idTime = 1L;
+		final long idTime2 = 2L;
 		final long jogador1 = 1L;
 		final long jogador2 = 2L;
-		final int habilidade = 80;
+		final int top = 80;
 		
 		// Time
 		cadastrarTime(idTime
 				, "São Paulo Futebol Clube"
 				, LocalDate.of(1930, Month.JANUARY, 25)
 				, "Branco", "Vermelho");
+		
+		cadastrarTime(idTime2
+				, "Corinthians - Sport Clube Paulista"
+				, LocalDate.of(1910, Month.SEPTEMBER, 1)
+				, "Branco", "Roxo");
 		
 		System.out.println();
 		System.out.println(">>>> Times");
@@ -34,6 +40,10 @@ public class TesteCadastroJogadorTime {
 		System.out.println();
 		System.out.println(">>>> Times");
 		imprimeNomeDoTime(idTime);
+		
+		System.out.println();
+		System.out.println(">>>> Cor da Camisa do Time de Fora");
+		System.out.println(service.buscarCorCamisaTimeDeFora(idTime, idTime2));
 		
 		// Jogadores
 		cadastrarJogador(jogador1
@@ -46,7 +56,7 @@ public class TesteCadastroJogadorTime {
 				, idTime
 				, "Denise Cristina C. C. Nascimento"
 				, LocalDate.of(1982, Month.APRIL, 20)
-				, 50, new BigDecimal(150000.0));
+				, 90, new BigDecimal(150000.0));
 		
 		defineCapitaoTime(jogador2);
 		
@@ -56,11 +66,13 @@ public class TesteCadastroJogadorTime {
 		listaJogadoresDoTime(idTime);
 		
 		System.out.println();
-		System.out.println(">>>> Jogadores (toString())");
-		service.imprimeJogadoresPorTime(idTime);
+		System.out.println(">>>> Jogador - Capitao");
+		imprimeCapitaoDoTime(idTime);
+		
+		defineCapitaoTime(jogador1);
 		
 		System.out.println();
-		System.out.println(">>>> Jogador - Capitao");
+		System.out.println(">>>> Jogador - Novo Capitao");
 		imprimeCapitaoDoTime(idTime);
 		
 		System.out.println();
@@ -69,11 +81,23 @@ public class TesteCadastroJogadorTime {
 		
 		System.out.println();
 		System.out.println(">>>> Jogador - Top");
-		imprimeTopJogador(habilidade);
+		imprimeTopJogador(top);
 		
 		System.out.println();
-		System.out.println(">>>> Jogador - Salario");
+		System.out.println(">>>> Jogador - O Salario");
 		imprimeSalarioJogador(jogador2);
+		
+		System.out.println();
+		System.out.println(">>>> Jogador - O melhor(Nivel Habilidade)");
+		System.out.println(service.buscarMelhorJogadorDoTime(idTime));
+		
+		System.out.println();
+		System.out.println(">>>> Jogador - O mais velho");
+		System.out.println(service.buscarJogadorMaisVelho(idTime));
+		
+		System.out.println();
+		System.out.println(">>>> Jogador - O maior Salário");
+		System.out.println(service.buscarJogadorMaiorSalario(idTime));
 	}
 
 	private static void imprimeNomeDoTime(long idTime) {

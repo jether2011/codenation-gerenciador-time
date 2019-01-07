@@ -25,6 +25,8 @@ public final class Time implements Serializable, Comparable<Time> {
 	private String corUniformePrincipal;
 	private String corUniformeSecundario;
 	
+	private transient Jogador capitao;
+	
 	public Time id(Long id) {
 		this.id = id;
 		return this;
@@ -50,6 +52,11 @@ public final class Time implements Serializable, Comparable<Time> {
 		return this;
 	}
 	
+	public Time capitao(Jogador jogador) {
+		this.capitao = jogador;
+		return this;
+	}
+	
 	/*
 	 * getters
 	 */
@@ -71,6 +78,14 @@ public final class Time implements Serializable, Comparable<Time> {
 
 	public String getCorUniformeSecundario() {
 		return corUniformeSecundario;
+	}
+	
+	public Jogador getCapitao() {
+		return capitao;
+	}
+	
+	public Long getIdCapitaoTime() {
+		return capitao.getId();
 	}
 	
 	@Override
@@ -106,13 +121,16 @@ public final class Time implements Serializable, Comparable<Time> {
 			.append(", nome=")
 			.append(nome)
 			.append(", dataCriacao=")
-			.append(dataCriacao)
-			.append(", corUniformePrincipal=")
-			.append(corUniformePrincipal)
-			.append(", corUniformeSecundario=")
-			.append(corUniformeSecundario)
-			.append("]");
+				.append(dataCriacao)
+				.append(", corUniformePrincipal=")
+				.append(corUniformePrincipal)
+				.append(", corUniformeSecundario=")
+				.append(corUniformeSecundario)
+				.append(", capitao=")
+				.append(capitao)
+				.append("]");
 		return builder.toString();
 	}
+
 	
 }
